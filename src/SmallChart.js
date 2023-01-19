@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
  const SmallChart=()=>{
 
   const [items,setItems]=useState({})
-
+  const [activeIndex,SetactiveIndex]=useState(0)
 
  
   
@@ -28,9 +28,11 @@ useEffect(() => {
 }, []);
 
 
-const handleClick =(info)=>{
-console.log(info)
-}
+const handleClick = (items, index) => {
+
+    SetactiveIndex(index)
+
+};
 
 
 
@@ -45,10 +47,20 @@ return(
   <YAxis />
   <Tooltip />
   <Legend />
-  <Bar dataKey="volume" fill="#82ca9d"  onClick={(value)=>handleClick(value)} />
+  <Bar dataKey="volume" fill="#82ca9d"  onClick={handleClick} >
  
-</BarChart>
+  {items.length > 0 &&  items.map((entry, index) => (
+  <Cell cursor="pointer" fill={index === activeIndex ? '#82ca9d' : '#00cc0626'} key={`cell-${index}`} />
+  ))}
+
+  </Bar>
+
+  </BarChart>
   </ResponsiveContainer>
+
+ 
+  
+
 
 
   </>
